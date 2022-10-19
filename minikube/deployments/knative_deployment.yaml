@@ -1,0 +1,28 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: knative-ml-service
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - image: dev.local/knative_ml_services:0.0.1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_HANDLER
+              value: knative_ml_services.api.main:app
+            - name: APP_HOST
+              value: 0.0.0.0
+            - name: APP_PORT
+              value: "8000"
+            - name: MODEL_PATHS
+              value: s3://models/xgb.joblib s3://models/svm.joblib
+            - name: MLFLOW_S3_ENDPOINT_URL
+              value: http://minio-service.default.svc.cluster.local:9000/
+            - name: AWS_ACCESS_KEY_ID
+              value: "admin"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "admin123"

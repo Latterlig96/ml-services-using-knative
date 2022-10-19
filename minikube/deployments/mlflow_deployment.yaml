@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlflow-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlflow-deployment
+  template:
+    metadata:
+      labels:
+        app: mlflow-deployment
+    spec:
+      containers:
+        - name: mlflow-deployment
+          image: pdemeulenaer/mlflow-server:537
+          imagePullPolicy: Never
+          args:
+            - --host=0.0.0.0
+            - --port=5000
+            - --backend-store-uri=postgresql://admin:admin123@postgres-svc.default.svc.cluster.local:5432/postgres
+            - --default-artifact-root=s3://mlflow/
+            - --workers=2
+          env:
+            - name: MLFLOW_S3_ENDPOINT_URL
+              value: http://minio-service.default.svc.cluster.local:9000/
+            - name: AWS_ACCESS_KEY_ID
+              value: "admin"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "admin123"
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "500m"
