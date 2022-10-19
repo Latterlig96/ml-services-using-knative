@@ -1,12 +1,9 @@
 FROM python:3.10
 
-RUN pip install -U pipenv
-
 WORKDIR /app
-
 COPY . /app
 
-RUN cd /app && pipenv install
+RUN cd /app && pip install -U pipenv && pipenv install
 
 EXPOSE 8000
 
