@@ -19,13 +19,9 @@ spec:
           args:
             - server
             - /storage
-          env:
-            - name: MINIO_ACCESS_KEY
-              value: "admin"
-            - name: MINIO_SECRET_KEY
-              value: "admin123"
-            - name: MINIO_CONSOLE_ADDRESS
-              value: ":9010"
+          envFrom:
+            - configMapRef:
+                name: project-configmap
           ports:
             - containerPort: 9000
               hostPort: 9000

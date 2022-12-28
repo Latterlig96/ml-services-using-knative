@@ -18,13 +18,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: "postgres"
-            - name: POSTGRES_USER
-              value: "admin"
-            - name: POSTGRES_PASSWORD
-              value: "admin123"
+          envFrom:
+            - configMapRef:
+                name: project-configmap
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgresdb

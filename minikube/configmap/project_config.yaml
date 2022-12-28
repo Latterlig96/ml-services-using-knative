@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: project-configmap
+data:
+  APP_HANDLER: knative_ml_services.api.main:app
+  APP_HOST: 0.0.0.0
+  APP_PORT: "8000"
+  MODEL_PATHS: s3://models/xgb.joblib s3://models/svm.joblib
+  MLFLOW_S3_ENDPOINT_URL: http://minio-service.default.svc.cluster.local:9000/
+  AWS_ACCESS_KEY_ID: "admin"
+  AWS_ACCESS_SECRET_KEY: "admin123"
+  MINIO_ACCESS_KEY: "admin"
+  MINIO_SECRET_KEY: "admin123"
+  MINIO_CONSOLE_ADDRESS: ":9010"
+  POSTGRES_DB: "postgres"
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "admin123"
