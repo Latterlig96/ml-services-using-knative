@@ -14,7 +14,7 @@ To train models (which are XGBoost and SVM) I used kaggle dataset that can be fo
 
 ## How to run
 To create whole deployment I use Makefile so only thing that is needed to run is to type `make` in main project dir. \
-NOTE: To run deployment you have to first have trained models on dataset managed in dataset section and have them stored on s3 bucket configured in `configmap` (see [configmap](minikube/configmap/project_config.yaml))
+NOTE: To run deployment you have to first have trained models on dataset mentioned in dataset section and have them stored on s3 bucket configured in `configmap` (see [configmap](minikube/configmap/project_config.yaml))
 
 ## Tech stack
 * Kubernetes <img src=".github/.idea/kubernetes.svg.png" width=100></img>
